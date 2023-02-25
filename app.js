@@ -44,6 +44,7 @@ btn.addEventListener("click", () => {
   input1.appendChild(name);
   name.setAttribute("placeholder", "Your name");
   name.setAttribute("required", "true");
+  name.style.textTransform = "capitalize";
 
   //   Input2__________________________________________
   let label2 = document.createElement("label");
@@ -141,7 +142,7 @@ btn.addEventListener("click", () => {
   sbt.addEventListener("click", (e) => {
     e.preventDefault();
     if (name.value !== "") {
-      window.location.href = "./main.html";
+      // window.location.href = "./main.html";
       localStorage.setItem("Name", name.value);
     } else {
       input1.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
