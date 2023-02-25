@@ -199,3 +199,17 @@ button:hover {
   border-radius: 12px;
   border: none;
 }
+
+@media screen and (max-width: 668px) {
+  main {
+    flex-direction: column;
+  }
+  .leftSide {
+    width: 100%;
+    height: 50%;
+  }
+  .rightSide {
+    width: 100%;
+    height: 50%;
+  }
+}
