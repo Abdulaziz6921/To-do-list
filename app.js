@@ -10,7 +10,7 @@ btn.addEventListener("click", () => {
 
   //   Form____________________________________________
 
-  let form = document.createElement("div");
+  let form = document.createElement("form");
   form.classList.add("form");
   shadow.appendChild(form);
 
@@ -43,6 +43,7 @@ btn.addEventListener("click", () => {
   name.classList.add("name");
   input1.appendChild(name);
   name.setAttribute("placeholder", "Your name");
+  name.setAttribute("required", "true");
 
   //   Input2__________________________________________
   let label2 = document.createElement("label");
@@ -134,4 +135,21 @@ btn.addEventListener("click", () => {
   sbt.classList.add("sbt");
   sbt.textContent = "Submit";
   form.appendChild(sbt);
+
+  //   Submission process_______________________________
+
+  sbt.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (name.value !== "") {
+      window.location.href = "./main.html";
+    } else {
+      input1.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
+      userIcon.style.color = "red";
+
+      setTimeout(() => {
+        input1.style = `border:none; box-shadow:none`;
+        userIcon.style.color = "";
+      }, 2100);
+    }
+  });
 });

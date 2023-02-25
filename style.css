@@ -25,8 +25,6 @@ main {
 .leftSide {
   width: 50%;
   height: 100%;
-  /* background: #000; */
-  border: 2px solid red;
 }
 
 .leftSide > img {
