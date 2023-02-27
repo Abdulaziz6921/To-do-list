@@ -94,7 +94,7 @@ addTaskBtn.addEventListener("click", () => {
     if (inputTask.value === "") {
       let close = document.querySelector(".close");
       form.appendChild(close);
-      inputTask.style = `border:12px solid red`;
+      inputTask.style = ` border:2px solid red;box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(254, 254, 254, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;`;
       let info = document.createElement("p");
       info.innerText = `Nothing is written`;
       close.appendChild(info);
@@ -175,7 +175,7 @@ addTaskBtn.addEventListener("click", () => {
     } else {
       let close = document.querySelector(".close");
       form.appendChild(close);
-      inputTask.style = `border:12px solid red`;
+      inputTask.style = ` border:2px solid red;box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(254, 254, 254, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;`;
       let info = document.createElement("p");
 
       if (inputTask.value === "") {

@@ -402,7 +402,6 @@ select {
     font-size: 14px;
   }
   .inner {
-    height: 250px;
     border-radius: 10px;
   }
   form {
