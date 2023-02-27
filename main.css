@@ -341,7 +341,7 @@ select {
 
   .top {
     margin-top: 0px;
-    height: 55px;
+    height: 70px;
     padding: 0 8px;
   }
 
@@ -352,8 +352,8 @@ select {
   }
 
   .pctr {
-    width: 55px;
-    height: 100%;
+    width: 56px;
+    height: 80%;
   }
 
   main {
