@@ -1,0 +1,576 @@
+@import url("https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+:root {
+  --main: #6e9bf6;
+  --text: #5f5e5e;
+  --secondary: #fe6057;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Shantell Sans;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* overflow-y: auto; */
+}
+
+.top {
+  width: 95%;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.settings {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: lightgreen; */
+  font-size: 4vw;
+  color: var(--main);
+  transition: all 1s ease-in-out;
+  animation: fade 0.7s linear;
+}
+
+.pctr {
+  width: 6vw;
+  height: 6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 100%;
+  border: 2px solid var(--main);
+  overflow: hidden;
+  transition: all 1s ease-in-out;
+  animation: fade 0.7s linear;
+}
+.pctr > img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  object-fit: contain;
+}
+
+main {
+  width: 80%;
+  display: flex;
+  height: calc(100% - 110px);
+}
+
+.leftSide {
+  width: 50%;
+  height: 100%;
+  border: 2px solid green;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 40px 30px;
+}
+
+.headers {
+  width: 100%;
+  height: fit-content;
+  line-height: 7vw;
+}
+.headers > h1 {
+  font-size: 7vw;
+  transition: all 1s ease-in-out;
+  animation: fade 0.7s linear;
+}
+.box {
+  width: 100%;
+  height: 30vw;
+  border-radius: 45px;
+  background: var(--main);
+  display: flex;
+  align-items: center;
+  margin-top: 55px;
+  padding: 1vw 3vw;
+  transition: all 0.5s ease-in-out;
+  animation: fade 0.7s linear;
+  box-shadow: rgba(50, 50, 93, 0.3) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.4) 0px 30px 60px -30px;
+}
+.box > p {
+  color: white;
+  font-size: 2.7vw;
+}
+.vector {
+  width: 20vw;
+  height: fit-content;
+  /* background: #000; */
+}
+
+.vector > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rightSide {
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid green;
+  padding: 35px 0;
+  /* background: var(--main); */
+}
+
+.container {
+  border-radius: 10px;
+  width: 90%;
+  height: 100%;
+  background: var(--main);
+  position: relative;
+  transition: all 0.5s ease-in-out;
+  animation: fade 0.7s linear;
+}
+
+.btn1 {
+  transition: all 1s ease-in-out;
+  animation: fade 0.7s linear;
+  width: 11vw;
+  height: fit-content;
+  padding: 1vw 0;
+  border-radius: 30px;
+  color: var(--main);
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.119) 0px -13px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -8px 20px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -12px 13px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  border: none;
+  position: absolute;
+  top: -25px;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  margin: 0 auto;
+  font-size: 1.3vw;
+  font-weight: 700;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  border-radius: inherit;
+}
+
+form {
+  width: 90%;
+  height: 12.9vw;
+  background: var(--secondary);
+  border-radius: inherit;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.28vw;
+  padding: 0.8vw 0;
+  transition: all 1s ease-in-out;
+  animation: fade 0.7s linear;
+}
+
+.input {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+}
+.input > input {
+  width: 75%;
+  height: 3.2vw;
+  text-indent: 1.2vw;
+  font-size: 1.1vw;
+  border: none;
+  outline: none;
+  background: white;
+  border-radius: 20px;
+}
+.btn2 {
+  width: fit-content;
+  height: 3.2vw;
+  padding: 0 0.7vw;
+  border-radius: 13px;
+  color: white;
+  background: var(--main);
+  transition: 1s;
+  border: none;
+  font-size: 1.08vw;
+  /* font-weight: 700; */
+}
+.btn2:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 1s;
+}
+
+.setters {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-top: 30px; */
+  margin: 1.28vw auto auto auto;
+}
+
+.allDelete {
+  width: fit-content;
+  height: 3.2vw;
+  padding: 0 1.28vw;
+  border-radius: 0.83vw;
+  color: white;
+  background: red;
+  transition: 1s;
+  border: none;
+  font-size: 1.08vw;
+}
+.allDelete:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+select {
+  width: fit-content;
+  height: fit-content;
+  padding: 0.64vw 0.96vw;
+  border-radius: 5px;
+  background: white;
+  transition: 1s;
+  border: none;
+  outline: none;
+  font-size: 1.08vw;
+}
+
+.close {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn3 {
+  display: none;
+  padding: 0.38vw 1.28vw;
+  background-color: #ad1212;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1vw;
+}
+.btn3:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 1s;
+}
+
+.tasks {
+  width: 85%;
+  height: 3.3vw;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.92vw;
+  margin: 20px 0 0 0;
+  overflow-y: auto;
+  border-radius: 13px;
+  font-size: 1.05vw;
+  transition: all 1s ease-in-out;
+  animation: fade 0.7s linear;
+}
+.tasks:last-child {
+  margin-bottom: 40px;
+}
+
+.text {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text > input {
+  margin-right: 1.28vw;
+  width: 1.08vw;
+  height: 1.08vw;
+  cursor: pointer;
+  color: #6e9bf6;
+  background: var(--main);
+}
+
+.tasks > button {
+  color: red;
+  font-size: 1.6vw;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: 0.5s;
+  border: none;
+  background-color: transparent;
+}
+.tasks > button:hover {
+  box-shadow: 0 0 6px 6px rgba(255, 0, 0, 0.178);
+  background: rgba(255, 0, 0, 0.26);
+  border-radius: 100%;
+  transition: 0.3s;
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    height: 100%;
+  }
+
+  .top {
+    margin-top: 0px;
+    height: 55px;
+    padding: 0 8px;
+  }
+
+  .settings {
+    width: 40px;
+    height: 40px;
+    font-size: 35px;
+  }
+
+  .pctr {
+    width: 55px;
+    height: 100%;
+  }
+
+  main {
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 55px);
+  }
+
+  .leftSide {
+    width: 100%;
+    height: 50%;
+    padding: 30px 25px;
+  }
+
+  .headers {
+    line-height: 8vw;
+  }
+  .headers > h1 {
+    font-size: 8vw;
+  }
+
+  .box {
+    height: 33vw;
+    border-radius: 15px;
+    margin-top: 30px;
+    padding: 1vw 3vw;
+  }
+  .box > p {
+    font-size: 23px;
+  }
+
+  .rightSide {
+    width: 100%;
+    height: 50%;
+    padding: 20px 0;
+  }
+
+  .btn1 {
+    width: 100px;
+    padding: 2.2vw 0;
+    border-radius: 10px;
+    top: -10px;
+    font-size: 14px;
+  }
+  .inner {
+    height: 250px;
+    border-radius: 10px;
+  }
+  form {
+    width: 90%;
+    height: 150px;
+    margin-top: 10px;
+    padding: 10px 0;
+  }
+
+  .input {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+  }
+  .input > input {
+    width: 75%;
+    height: 37px;
+    text-indent: 1.8vw;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background: white;
+    border-radius: 10px;
+  }
+  .btn2 {
+    width: fit-content;
+    height: 37px;
+    padding: 0 0.7vw;
+    border-radius: 10px;
+    color: white;
+    background: var(--main);
+    transition: 1s;
+    border: none;
+    font-size: 14px;
+    /* font-weight: 700; */
+  }
+  .btn2:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 1s;
+  }
+
+  .setters {
+    margin: 20px auto auto auto;
+  }
+
+  .allDelete {
+    width: fit-content;
+    height: 37px;
+    padding: 0 13px;
+    border-radius: 10px;
+    color: white;
+    background: red;
+    transition: 1s;
+    border: none;
+    font-size: 14px;
+  }
+
+  select {
+    width: fit-content;
+    height: fit-content;
+    padding: 0.64vw 0.96vw;
+    border-radius: 5px;
+    background: white;
+    transition: 1s;
+    border: none;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .close {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .btn3 {
+    display: none;
+    padding: 0.38vw 1.28vw;
+    background-color: #ad1212;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  .btn3:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 1s;
+  }
+
+  .tasks {
+    width: 80%;
+    height: 40px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.92vw;
+    margin: 20px 0 0 0;
+    overflow-y: auto;
+    border-radius: 13px;
+    font-size: 14px;
+  }
+  .tasks:last-child {
+    margin-bottom: 40px;
+  }
+
+  .text {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .text > input {
+    margin-right: 12px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    color: #6e9bf6;
+    background: var(--main);
+  }
+
+  .tasks > button {
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: 0.5s;
+    border: none;
+    background-color: transparent;
+  }
+  .tasks > button:hover {
+    box-shadow: 0 0 6px 6px rgba(255, 0, 0, 0.178);
+    background: rgba(255, 0, 0, 0.26);
+    border-radius: 100%;
+    transition: 0.3s;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.7);
+  }
+
+  20% {
+    transform: scaleX(1);
+  }
+
+  40% {
+    transform: scaleX(0.75);
+  }
+
+  60% {
+    transform: scaleX(1);
+  }
+
+  80% {
+    transform: scaleX(0.85);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: scaleX(1);
+  }
+}

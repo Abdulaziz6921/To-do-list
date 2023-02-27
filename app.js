@@ -96,6 +96,13 @@ btn.addEventListener("click", () => {
 
   photo.addEventListener("change", (e) => {
     preview(e);
+    const image = e.target.files[0];
+    console.log(image);
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.addEventListener("load", () => {
+      localStorage.setItem("Photo", reader.result);
+    });
   });
 
   let preview = (e) => {
@@ -141,17 +148,88 @@ btn.addEventListener("click", () => {
 
   sbt.addEventListener("click", (e) => {
     e.preventDefault();
-    if (name.value !== "") {
-      // window.location.href = "./main.html";
-      localStorage.setItem("Name", name.value);
+    let regex = /^[a-zA-Z]{2,25}$/gm;
+    let regex2 = /^[0-9]{4,8}$/gm;
+
+    if (name.value !== "" && regex.test(name.value)) {
+      let value = name.value.charAt().toUpperCase() + name.value.slice(1);
+      localStorage.setItem("Name", value);
+      if (password.value === "") {
+        window.location.href = "./main.html";
+        photo.addEventListener("change", (e) => {
+          const image = e.target.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(image);
+          reader.addEventListener("load", () => {
+            localStorage.setItem("Photo", reader.result);
+          });
+        });
+      } else {
+        if (regex2.test(password.value)) {
+          if (photo.value == "") {
+            window.location.href = "./main.html";
+          } else {
+            photo.addEventListener("change", (e) => {
+              const image = e.target.files[0];
+
+              const reader = new FileReader();
+              reader.readAsDataURL(image);
+              reader.addEventListener("load", () => {
+                localStorage.setItem("Photo", reader.result);
+              });
+            });
+          }
+          window.location.href = "./main.html";
+          localStorage.setItem("Password", password.value);
+        } else {
+          input2.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
+          pswrdIcon.style.color = "red";
+
+          let info2 = document.createElement("p");
+          let hasSpace = /\s/;
+          if (hasSpace.test(password.value)) {
+            info2.innerText =
+              "Please fill out 'password' field without any space";
+          } else {
+            info2.innerText = "min~4 max~8 and only numbers allowed";
+          }
+
+          info2.style = `color:red; text-align:center`;
+          form.insertBefore(info2, sbt);
+
+          setTimeout(() => {
+            input2.style = `border:none; box-shadow:none`;
+            pswrdIcon.style.color = "";
+            form.removeChild(info2);
+          }, 2000);
+        }
+      }
     } else {
       input1.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
       userIcon.style.color = "red";
+      let info = document.createElement("p");
+      let hasNumber = /\d/;
+      let hasSpace = /\s/;
 
+      if (hasNumber.test(name.value)) {
+        info.innerText = "Please fill out 'name' field without numbers";
+      } else if (hasSpace.test(name.value)) {
+        info.innerText = "Please fill out 'name' field without any space";
+      } else {
+        info.innerText = "Please fill out 'name' field";
+      }
+
+      info.style = `color:red; text-align:center`;
+      form.insertBefore(info, sbt);
       setTimeout(() => {
         input1.style = `border:none; box-shadow:none`;
         userIcon.style.color = "";
+        form.removeChild(info);
       }, 2000);
     }
   });
 });
+
+// if (password.value.length > 0) {
+
+// }
