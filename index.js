@@ -233,3 +233,10 @@ btn.addEventListener("click", () => {
 // if (password.value.length > 0) {
 
 // }
+let userName2 = localStorage.getItem("Name");
+
+if (userName2.length > 0) {
+  window.location.href = "./main.html";
+} else {
+  console.log(userName2);
+}
