@@ -1,6 +1,5 @@
 let btn = document.querySelector("button");
 let body = document.querySelector("body");
-// console.log(btn);
 
 btn.addEventListener("click", () => {
   //   Shadow_________________________________________
@@ -230,13 +229,18 @@ btn.addEventListener("click", () => {
   });
 });
 
-// if (password.value.length > 0) {
-
-// }
+// Directed to the main page________________________________
 let userName2 = localStorage.getItem("Name");
+let isPasswordSet = localStorage.getItem("Password");
 
-if (userName2.length > 0) {
+if (userName2.length > 0 && isPasswordSet.length === null) {
   window.location.href = "./main.html";
 } else {
-  console.log(userName2);
+  if (isPasswordSet.length > 0) {
+    window.location.href = "./password.html";
+  } else {
+    window.location.href = "./main.html";
+  }
 }
+
+// Direct to the Password page__________________________________
