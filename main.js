@@ -233,62 +233,76 @@ allDelete.addEventListener("click", () => {
 });
 
 // Getting or Setting Settings____________________________
-let sideBar = document.createElement("div");
-body.appendChild(sideBar);
 
-let btnName = document.createElement("button");
-
-let txtName = document.createElement("p");
-txtName.innerHTML = "<i class='fa fa-user'></i> Change name";
-
-btnName.classList.add("settingBtn");
-
-let password = localStorage.getItem("Password");
-let btnPassword = document.createElement("button");
-let txtPassword = document.createElement("p");
-btnPassword.classList.add("settingBtn");
-if (password === null) {
-  txtPassword.innerHTML = "<i class='fa fa-wrench'></i> Set password";
-} else {
-  txtPassword.innerHTML = "<i class='fa fa-lock'></i> Change password";
-}
-
-let Photo = localStorage.getItem("Photo");
-let btnPhoto = document.createElement("button");
-let txtPhoto = document.createElement("p");
-btnPhoto.classList.add("settingBtn");
-
-if (Photo === null) {
-  txtPhoto.innerHTML = "<i class='fa fa-wrench'></i> Set photo";
-} else {
-  txtPhoto.innerHTML = "<i class='fa fa-picture-o'></i> Change photo";
-}
-
-let btnMode = document.createElement("button");
-btnMode.classList.add("settingBtn");
-let txtBtn = document.createElement("p");
-txtBtn.innerHTML = "<i class='fa fa-moon-o'></i> Dark Mode";
-
-btnName.appendChild(txtName);
-btnPassword.appendChild(txtPassword);
-btnPhoto.appendChild(txtPhoto);
-btnMode.appendChild(txtBtn);
-
+let appended = false;
 settings.addEventListener("click", () => {
-  sideBar.classList.toggle("sideBar");
+  let shadowBar = document.createElement("div");
+  shadowBar.classList.add("shadowBar");
+  body.appendChild(shadowBar);
+
+  shadowBar.addEventListener("click", () => {
+    shadowBar.classList.add("sideBarRemove");
+    sideBar.classList.add("sideBarRemove");
+  });
+
+  let sideBar = document.createElement("div");
+  body.appendChild(sideBar);
+  sideBar.classList.add("sideBar");
+
+  let btnName = document.createElement("button");
+  let txtName = document.createElement("p");
+  txtName.innerHTML = "<i class='fa fa-user'></i> Change name";
+  btnName.classList.add("settingBtn");
+
+  let password = localStorage.getItem("Password");
+  let btnPassword = document.createElement("button");
+  let txtPassword = document.createElement("p");
+  btnPassword.classList.add("settingBtn");
+  if (password === null) {
+    txtPassword.innerHTML = "<i class='fa fa-wrench'></i> Set password";
+  } else {
+    txtPassword.innerHTML = "<i class='fa fa-lock'></i> Change password";
+  }
+
+  let Photo = localStorage.getItem("Photo");
+  let btnPhoto = document.createElement("button");
+  let txtPhoto = document.createElement("p");
+  btnPhoto.classList.add("settingBtn");
+
+  if (Photo === null) {
+    txtPhoto.innerHTML = "<i class='fa fa-wrench'></i> Set photo";
+  } else {
+    txtPhoto.innerHTML = "<i class='fa fa-picture-o'></i> Change photo";
+  }
+
+  let btnMode = document.createElement("button");
+  btnMode.classList.add("settingBtn");
+  let txtBtn = document.createElement("p");
+  txtBtn.innerHTML = "<i class='fa fa-moon-o'></i> Dark Mode";
   sideBar.appendChild(btnName);
   sideBar.appendChild(btnPassword);
   sideBar.appendChild(btnPhoto);
   sideBar.appendChild(btnMode);
-});
-btnName.innerHTML += "<i class='fa fa-chevron-right'></i>";
-btnMode.innerHTML += "<i class='fa fa-chevron-right'></i>";
-btnPassword.innerHTML += "<i class='fa fa-chevron-right'></i>";
-btnPhoto.innerHTML += "<i class='fa fa-chevron-right'></i>";
 
-btnMode.addEventListener("click", (e) => {
-  body.classList.toggle("dark_mode");
-  e.target.style.backgroundColor =
-    e.target.style.backgroundColor === "red" ? "" : "red";
-  e.target.style.color = e.target.style.color === "white" ? "" : "white";
+  btnName.appendChild(txtName);
+  btnPassword.appendChild(txtPassword);
+  btnPhoto.appendChild(txtPhoto);
+  btnMode.appendChild(txtBtn);
+
+  btnName.innerHTML += "<i class='fa fa-chevron-right'></i>";
+  btnMode.innerHTML += "<i class='fa fa-chevron-right'></i>";
+  btnPassword.innerHTML += "<i class='fa fa-chevron-right'></i>";
+  btnPhoto.innerHTML += "<i class='fa fa-chevron-right'></i>";
+
+  btnMode.addEventListener("click", (e) => {
+    body.classList.toggle("dark_mode");
+    e.target.style.backgroundColor =
+      e.target.style.backgroundColor === "red" ? "" : "red";
+    e.target.style.color = e.target.style.color === "white" ? "" : "white";
+  });
 });
+
+// let allBtn = document.querySelectorAll(".settingBtn");
+// if (body.contains(allBtn)) {
+//   body.removeChild(allBtn);
+// }
