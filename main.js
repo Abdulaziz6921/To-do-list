@@ -87,7 +87,7 @@ select.addEventListener("change", (e) => {
   if (val === "text") {
     inputTask.setAttribute("placeholder", "Add Task");
   } else {
-    inputTask.setAttribute("placeholder", "dd.mm.yy, dd/mm/yy,  dd-mm-yy");
+    inputTask.setAttribute("placeholder", "dd.mm.yy, dd/mm/yy, dd-mm-yy");
   }
 });
 let height;
@@ -107,6 +107,11 @@ addTaskBtn.addEventListener("click", () => {
         info.innerText = ``;
       }, 2000);
     } else {
+      if (body.classList.contains("dark_mode")) {
+        tasks.style = `color:black`;
+      } else {
+        tasks.style = `color:black`;
+      }
       let tasks = document.createElement("div");
       tasks.classList.add("tasks");
       if (body.classList.contains("dark_mode")) {
