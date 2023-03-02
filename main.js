@@ -221,10 +221,7 @@ addTaskBtn.addEventListener("click", () => {
   let children = inner.childElementCount;
 
   // Solving media problem____________________________
-  let width = window.innerWidth;
-  // if (width <= 700 && children === 2) {
-  //   body.height = "100%";
-  // }
+
   if (children === 5) {
     main.style.height = "fit-content";
   }
