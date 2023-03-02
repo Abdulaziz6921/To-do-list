@@ -107,11 +107,6 @@ addTaskBtn.addEventListener("click", () => {
         info.innerText = ``;
       }, 2000);
     } else {
-      if (body.classList.contains("dark_mode")) {
-        tasks.style = `color:black`;
-      } else {
-        tasks.style = `color:black`;
-      }
       let tasks = document.createElement("div");
       tasks.classList.add("tasks");
       if (body.classList.contains("dark_mode")) {
@@ -155,6 +150,11 @@ addTaskBtn.addEventListener("click", () => {
       let tasks = document.createElement("div");
       tasks.classList.add("tasks");
       inner.appendChild(tasks);
+      if (body.classList.contains("dark_mode")) {
+        tasks.style = `color:black`;
+      } else {
+        tasks.style = `color:black`;
+      }
 
       let text = document.createElement("div");
       text.classList.add("text");
