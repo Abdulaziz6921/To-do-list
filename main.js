@@ -109,6 +109,11 @@ addTaskBtn.addEventListener("click", () => {
     } else {
       let tasks = document.createElement("div");
       tasks.classList.add("tasks");
+      if (body.classList.contains("dark_mode")) {
+        tasks.style = `color:black`;
+      } else {
+        tasks.style = `color:black`;
+      }
       inner.appendChild(tasks);
 
       let text = document.createElement("div");
@@ -232,9 +237,7 @@ allDelete.addEventListener("click", () => {
   }
 });
 
-// Getting or Setting Settings____________________________
-
-let appended = false;
+// Showing Settings Parameter Sidebar________________________
 settings.addEventListener("click", () => {
   let shadowBar = document.createElement("div");
   shadowBar.classList.add("shadowBar");
@@ -255,206 +258,35 @@ settings.addEventListener("click", () => {
   txtName.innerHTML = "<i class='fa fa-user'></i> Change name";
   btnName.classList.add("settingBtn");
   btnName.appendChild(txtName);
+  btnName.innerHTML += "<i class='fa fa-chevron-right'></i>";
   sideBar.appendChild(btnName);
 
-  btnName.addEventListener("click", () => {
-    let shadowSetPhoto = document.createElement("div");
-    shadowSetPhoto.classList.add("shadowSetPhoto");
-    body.appendChild(shadowSetPhoto);
-    //   Form____________________________________________
-
-    let form_SetPhoto = document.createElement("form");
-    form_SetPhoto.classList.add("form_SetPhoto");
-
-    shadowSetPhoto.appendChild(form_SetPhoto);
-
-    //   Header__________________________________________
-    let h3 = document.createElement("h3");
-    h3.innerText = "Change your user name:";
-    form_SetPhoto.appendChild(h3);
-
-    //   Inputs__________________________________________
-    let inputs_SetPhoto = document.createElement("div");
-    inputs_SetPhoto.classList.add("inputs_SetPhoto");
-    form_SetPhoto.appendChild(inputs_SetPhoto);
-
-    //   Input1__________________________________________
-    let label = document.createElement("label");
-    label.innerHTML = "Name: ";
-    inputs_SetPhoto.appendChild(label);
-
-    let input1 = document.createElement("div");
-    input1.classList.add("input1");
-    inputs_SetPhoto.appendChild(input1);
-
-    let userIcon = document.createElement("div");
-    userIcon.classList.add("user");
-    input1.appendChild(userIcon);
-    userIcon.innerHTML = "<i class='fa fa-user'></i>";
-
-    let name = document.createElement("input");
-    name.classList.add("name");
-    input1.appendChild(name);
-    name.setAttribute("placeholder", "Your name");
-    name.setAttribute("required", "true");
-    // name.setAttribute("minlength", "2");
-    // name.setAttribute("maxlength", "25");
-    name.style.textTransform = "capitalize";
-
-    //   X-btn_________________________________________
-
-    let x = document.createElement("button");
-    x.classList.add("x-btn");
-    x.innerHTML = "<i class='fa fa-times' ></i>";
-    form_SetPhoto.appendChild(x);
-
-    x.addEventListener("click", () => {
-      body.removeChild(shadowSetPhoto);
-    });
-
-    //   Submit________________________________________
-    let sbt = document.createElement("button");
-    sbt.classList.add("sbt");
-    sbt.textContent = "Submit";
-    sbt.addEventListener("click", (e) => {
-      e.preventDefault();
-      let regex = /^[a-zA-Z]{2,25}$/gm;
-      if (name.value !== "" && regex.test(name.value)) {
-        let value = name.value.charAt().toUpperCase() + name.value.slice(1);
-        localStorage.setItem("Name", value);
-        window.location.reload();
-      } else {
-        input1.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
-        userIcon.style.color = "red";
-        let info = document.createElement("p");
-        let hasNumber = /\d/;
-        let hasSpace = /\s/;
-
-        if (hasNumber.test(name.value)) {
-          info.innerText = "Please fill out 'name' field without numbers";
-        } else if (hasSpace.test(name.value)) {
-          info.innerText = "Please fill out 'name' field without any space";
-        } else {
-          info.innerText = "Please fill out 'name' field";
-        }
-
-        info.style = `color:red; text-align:center`;
-        form_SetPhoto.insertBefore(info, sbt);
-        setTimeout(() => {
-          input1.style = `border:none; box-shadow:none`;
-          userIcon.style.color = "";
-          form_SetPhoto.removeChild(info);
-        }, 2000);
-      }
-    });
-    form_SetPhoto.appendChild(sbt);
-  });
-
-  // Password Setting____________________________________________
   let password = localStorage.getItem("Password");
   let btnPassword = document.createElement("button");
   let txtPassword = document.createElement("p");
   btnPassword.classList.add("settingBtn");
   btnPassword.appendChild(txtPassword);
+
   sideBar.appendChild(btnPassword);
-  let header = document.createElement("h3");
-  header.innerText = "Set your password";
-  let passwordInput = document.createElement("input");
-  passwordInput.classList.add("name");
-  passwordInput.setAttribute("placeholder", "Create password");
   if (password === null) {
     txtPassword.innerHTML = "<i class='fa fa-wrench'></i> Set password";
   } else {
-    header.innerText = "Change your password";
-    txtPassword.innerHTML = "<i class='fa fa-lock'></i> Change password";
-    passwordInput.setAttribute("placeholder", "Change the password");
+    txtPassword.innerHTML = "<i class='fa fa-picture-o'></i> Change password";
+  }
+  btnPassword.innerHTML += "<i class='fa fa-chevron-right'></i>";
+
+  // Deleting Password Setting___________________________________
+  if (password !== null) {
+    let btnDeleting = document.createElement("button");
+    let txtDeleting = document.createElement("p");
+    txtDeleting.style.color = "red";
+    btnDeleting.classList.add("settingBtn");
+    btnDeleting.appendChild(txtDeleting);
+    txtDeleting.innerHTML = "<i class='fa fa-trash-o'></i> Delete password";
+    sideBar.appendChild(btnDeleting);
+    btnDeleting.innerHTML += "<i class='fa fa-chevron-right'></i>";
   }
 
-  btnPassword.addEventListener("click", () => {
-    let shadowSetPhoto = document.createElement("div");
-    shadowSetPhoto.classList.add("shadowSetPhoto");
-    body.appendChild(shadowSetPhoto);
-    //   Form____________________________________________
-
-    let form_SetPhoto = document.createElement("form");
-    form_SetPhoto.classList.add("form_SetPhoto");
-
-    shadowSetPhoto.appendChild(form_SetPhoto);
-
-    //   Header__________________________________________
-
-    form_SetPhoto.appendChild(header);
-
-    //   Inputs__________________________________________
-    let inputs_SetPhoto = document.createElement("div");
-    inputs_SetPhoto.classList.add("inputs_SetPhoto");
-    form_SetPhoto.appendChild(inputs_SetPhoto);
-
-    //   Input__________________________________________
-    let label2 = document.createElement("label");
-    label2.textContent = "Password: ";
-    form_SetPhoto.appendChild(label2);
-
-    let input2 = document.createElement("div");
-    input2.classList.add("input1");
-    form_SetPhoto.appendChild(input2);
-
-    let pswrdIcon = document.createElement("div");
-    pswrdIcon.classList.add("user");
-    input2.appendChild(pswrdIcon);
-    pswrdIcon.innerHTML = "<i class='fa fa-lock'></i>";
-
-    input2.appendChild(passwordInput);
-    passwordInput.setAttribute("type", "password");
-
-    //   X-btn_________________________________________
-
-    let x = document.createElement("button");
-    x.classList.add("x-btn");
-    x.innerHTML = "<i class='fa fa-times' ></i>";
-    form_SetPhoto.appendChild(x);
-
-    x.addEventListener("click", () => {
-      body.removeChild(shadowSetPhoto);
-    });
-
-    //   Submit________________________________________
-    let sbt = document.createElement("button");
-    sbt.classList.add("sbt");
-    sbt.textContent = "Submit";
-    sbt.addEventListener("click", (e) => {
-      e.preventDefault();
-      let regex2 = /^[0-9]{4,8}$/gm;
-      if (passwordInput.value !== "" && regex2.test(passwordInput.value)) {
-        localStorage.setItem("Password", passwordInput.value);
-        window.location.reload();
-      } else {
-        input2.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
-        pswrdIcon.style.color = "red";
-
-        let info2 = document.createElement("p");
-        let hasSpace = /\s/;
-        if (hasSpace.test(passwordInput.value)) {
-          info2.innerText =
-            "Please fill out 'password' field without any space";
-        } else {
-          info2.innerText = "min~4 max~8 and only numbers allowed";
-        }
-
-        info2.style = `color:red; text-align:center`;
-        form_SetPhoto.insertBefore(info2, sbt);
-
-        setTimeout(() => {
-          input2.style = `border:none; box-shadow:none`;
-          pswrdIcon.style.color = "";
-          form_SetPhoto.removeChild(info2);
-        }, 2000);
-      }
-    });
-    form_SetPhoto.appendChild(sbt);
-  });
-
-  // Photo Setting____________________________________________
   let Photo = localStorage.getItem("Photo");
   let btnPhoto = document.createElement("button");
   let txtPhoto = document.createElement("p");
@@ -470,98 +302,282 @@ settings.addEventListener("click", () => {
     h3.innerText = "Change your profile picture";
     txtPhoto.innerHTML = "<i class='fa fa-picture-o'></i> Change photo";
   }
+  btnPhoto.innerHTML += "<i class='fa fa-chevron-right'></i>";
 
-  btnPhoto.addEventListener("click", () => {
-    let shadowSetPhoto = document.createElement("div");
-    shadowSetPhoto.classList.add("shadowSetPhoto");
-    body.appendChild(shadowSetPhoto);
-    //   Form____________________________________________
+  let settingButtons = document.querySelectorAll(".settingBtn");
+  settingButtons.forEach((btn) => {
+    let btnType = btn.innerText;
 
-    let form_SetPhoto = document.createElement("form");
-    form_SetPhoto.classList.add("form_SetPhoto");
-    shadowSetPhoto.appendChild(form_SetPhoto);
+    btn.addEventListener("click", () => {
+      //   Form Bg Shadow _________________________________
+      let shadowSet = document.createElement("div");
+      shadowSet.classList.add("shadowSet");
+      body.appendChild(shadowSet);
 
-    //   Header__________________________________________
+      //   Form____________________________________________
+      let form_Settings = document.createElement("form");
+      form_Settings.classList.add("form_Settings");
+      shadowSet.appendChild(form_Settings);
 
-    form_SetPhoto.appendChild(h3);
+      //   Header__________________________________________
+      let h3 = document.createElement("h3");
+      form_Settings.appendChild(h3);
 
-    //   Inputs__________________________________________
-    let inputs_SetPhoto = document.createElement("div");
-    inputs_SetPhoto.classList.add("inputs_SetPhoto");
-    form_SetPhoto.appendChild(inputs_SetPhoto);
+      //   Inputs___________________________________________
+      let inputWrapper = document.createElement("div");
+      inputWrapper.classList.add("inputWrapper");
+      form_Settings.appendChild(inputWrapper);
 
-    //   Input1__________________________________________
-    let label4 = document.createElement("label");
-    label4.textContent = "Upload photo:";
-    inputs_SetPhoto.appendChild(label4);
+      //   X-btn____________________________________________
+      let x = document.createElement("button");
+      x.classList.add("x-btn");
+      x.innerHTML = "<i class='fa fa-times' ></i>";
+      form_Settings.appendChild(x);
 
-    let input3 = document.createElement("div");
-    input3.classList.add("input3");
-    inputs_SetPhoto.appendChild(input3);
-
-    let label3 = document.createElement("label");
-    label3.innerHTML =
-      "<i class='fa fa-picture-o' style='margin-left:15px;margin-right:14px'></i> Choose";
-    label3.classList.add("label3");
-    label3.setAttribute("for", "getFile");
-    input3.appendChild(label3);
-
-    let prImg = document.createElement("img");
-    prImg.classList.add("prImg");
-    prImg.setAttribute("id", "pr-img");
-    inputs_SetPhoto.appendChild(prImg);
-
-    let photo = document.createElement("input");
-    photo.style.display = "none";
-    inputs_SetPhoto.appendChild(photo);
-    photo.setAttribute("type", "file");
-    photo.setAttribute("id", "getFile");
-    photo.setAttribute("accept", "image/*");
-
-    let preview = (e) => {
-      let imgFiles = e.target.files;
-      let imgFilesLength = imgFiles.length;
-      if (imgFilesLength > 0) {
-        let imgSrc = URL.createObjectURL(imgFiles[0]);
-        let imgEl = document.querySelector("#pr-img");
-        imgEl.src = imgSrc;
-        imgEl.style.display = "block";
-        // console.log(imgSrc);
-      }
-    };
-    let PhotoPRofile = [];
-    photo.addEventListener("change", (e) => {
-      preview(e);
-      const image = e.target.files[0];
-      console.log(image);
-      PhotoPRofile.push(image);
-    });
-    console.log(PhotoPRofile);
-
-    //   X-btn_________________________________________
-
-    let x = document.createElement("button");
-    x.classList.add("x-btn");
-    x.innerHTML = "<i class='fa fa-times' ></i>";
-    form_SetPhoto.appendChild(x);
-
-    x.addEventListener("click", () => {
-      body.removeChild(shadowSetPhoto);
-    });
-
-    //   Submit________________________________________
-    let sbt = document.createElement("button");
-    sbt.classList.add("sbt");
-    sbt.textContent = "Submit";
-    sbt.addEventListener("click", () => {
-      let img = PhotoPRofile[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(img);
-      reader.addEventListener("load", () => {
-        localStorage.setItem("Photo", reader.result);
+      x.addEventListener("click", () => {
+        body.removeChild(shadowSet);
       });
+
+      //   Submit___________________________________________
+      let sbt = document.createElement("button");
+      sbt.classList.add("sbt");
+      sbt.textContent = "Submit";
+      form_Settings.appendChild(sbt);
+
+      let label = document.createElement("label");
+      label.style = `margin-top:20px`;
+      inputWrapper.appendChild(label);
+
+      let inputWrap = document.createElement("div");
+      inputWrap.classList.add("inputWrap");
+      inputWrapper.appendChild(inputWrap);
+      let inputType = document.createElement("input");
+      inputType.classList.add("name");
+
+      // Changing the name_______________________________________
+      if (btnType.includes("name")) {
+        h3.innerText = "Change your user name:";
+
+        //   inputTypeName________________________________________
+        label.innerHTML = "Name: ";
+
+        let userIcon = document.createElement("div");
+        userIcon.classList.add("user");
+        inputWrap.appendChild(userIcon);
+        userIcon.innerHTML = "<i class='fa fa-user'></i>";
+
+        inputType.setAttribute("placeholder", "Your name");
+        inputType.setAttribute("minlength", "2");
+        inputType.setAttribute("maxlength", "25");
+        inputType.style.textTransform = "capitalize";
+        inputWrap.appendChild(inputType);
+
+        sbt.addEventListener("click", (e) => {
+          e.preventDefault();
+          let regex = /^[a-zA-Z]{2,25}$/gm;
+          if (inputType.value !== "" && regex.test(inputType.value)) {
+            let value =
+              inputType.value.charAt().toUpperCase() + inputType.value.slice(1);
+            localStorage.setItem("Name", value);
+            window.location.reload();
+          } else {
+            inputWrap.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
+            userIcon.style.color = "red";
+            let info = document.createElement("p");
+            let hasNumber = /\d/;
+            let hasSpace = /\s/;
+
+            if (hasNumber.test(inputType.value)) {
+              info.innerText = "Please fill out 'name' field without numbers";
+            } else if (hasSpace.test(inputType.value)) {
+              info.innerText = "Please fill out 'name' field without any space";
+            } else {
+              info.innerText = "Please fill out 'name' field";
+            }
+
+            info.style = `color:red; text-align:center`;
+            form_Settings.insertBefore(info, sbt);
+            setTimeout(() => {
+              inputWrap.style = `border:none; box-shadow:none`;
+              userIcon.style.color = "";
+              form_Settings.removeChild(info);
+            }, 2000);
+          }
+        });
+      }
+
+      // Changing or Setting the password________________________
+      if (
+        btnType.includes("Change password") ||
+        btnType.includes("Set password")
+      ) {
+        //   InputTypePassword__________________________________________
+
+        label.textContent = "Password: ";
+
+        let pswrdIcon = document.createElement("div");
+        pswrdIcon.classList.add("user");
+        pswrdIcon.innerHTML = "<i class='fa fa-lock'></i>";
+        inputWrap.appendChild(pswrdIcon);
+
+        inputType.setAttribute("type", "password");
+
+        if (txtPassword.innerText.includes("Change")) {
+          inputType.setAttribute("placeholder", "Change the password");
+          h3.innerText = "Change your password:";
+          console.log("yes");
+        } else {
+          inputType.setAttribute("placeholder", "Create password");
+          h3.innerText = "Set your password";
+        }
+        inputWrap.appendChild(inputType);
+
+        //   Submit________________________________________
+        sbt.addEventListener("click", (e) => {
+          e.preventDefault();
+          let regex2 = /^[0-9]{4,8}$/gm;
+          if (inputType.value !== "" && regex2.test(inputType.value)) {
+            localStorage.setItem("Password", inputType.value);
+            window.location.reload();
+          } else {
+            inputWrap.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
+            pswrdIcon.style.color = "red";
+
+            let info2 = document.createElement("p");
+            let hasSpace = /\s/;
+            if (hasSpace.test(inputType.value)) {
+              info2.innerText =
+                "Please fill out 'password' field without any space";
+            } else {
+              info2.innerText = "min~4 max~8 and only numbers allowed";
+            }
+
+            info2.style = `color:red; text-align:center`;
+            form_Settings.insertBefore(info2, sbt);
+
+            setTimeout(() => {
+              inputWrap.style = `border:none; box-shadow:none`;
+              pswrdIcon.style.color = "";
+              form_Settings.removeChild(info2);
+            }, 2000);
+          }
+        });
+      }
+
+      // Deleting the password____________________________________
+      if (btnType.includes("Delete")) {
+        h3.innerText = "Delete your password:";
+
+        //   InputTypePasswordDelete__________________
+        label.textContent = "Current password: ";
+
+        let pswrdIcon = document.createElement("div");
+        pswrdIcon.classList.add("user");
+        pswrdIcon.innerHTML = "<i class='fa fa-lock'></i>";
+        inputWrap.appendChild(pswrdIcon);
+
+        inputType.setAttribute("type", "password");
+        inputType.setAttribute("placeholder", "Enter current password");
+
+        inputWrap.appendChild(inputType);
+
+        //   Submit________________________________________
+        sbt.addEventListener("click", (e) => {
+          e.preventDefault();
+          let regex2 = /^[0-9]{4,8}$/gm;
+          let info2 = document.createElement("p");
+          if (inputType.value !== "" && regex2.test(inputType.value)) {
+            let lastPin = localStorage.getItem("Password");
+            if (inputType.value === lastPin) {
+              localStorage.removeItem("Password");
+              window.location.reload();
+            } else {
+              info2.innerText =
+                "Your current password is not matching and incorrect";
+              info2.style = `color:red; text-align:center`;
+
+              form_Settings.insertBefore(info2, sbt);
+
+              setTimeout(() => {
+                inputWrap.style = `border:none; box-shadow:none`;
+                pswrdIcon.style.color = "";
+                form_Settings.removeChild(info2);
+              }, 2000);
+            }
+          } else {
+            inputWrap.style = `border:3px solid red;box-shadow: rgba(243, 5, 5, 0.25) 0px 54px 55px, rgba(255, 0, 0, 0.12) 0px -12px 30px, rgba(255, 0, 0, 0.12) 0px 4px 6px, rgba(255, 3, 3, 0.17) 0px 12px 13px, rgba(255, 0, 0, 0.09) 0px -3px 5px;`;
+            pswrdIcon.style.color = "red";
+
+            let hasSpace = /\s/;
+            if (hasSpace.test(inputType.value)) {
+              info2.innerText =
+                "Please fill out 'password' field without any space";
+            } else {
+              info2.innerText = "min~4 max~8 and only numbers allowed";
+            }
+
+            info2.style = `color:red; text-align:center`;
+            form_Settings.insertBefore(info2, sbt);
+
+            setTimeout(() => {
+              inputWrap.style = `border:none; box-shadow:none`;
+              pswrdIcon.style.color = "";
+              form_Settings.removeChild(info2);
+            }, 2000);
+          }
+        });
+      }
+
+      // Changing or Setting the photo____________________________
+      if (btnType.includes("photo")) {
+        h3.textContent = "Upload photo:";
+
+        //   inputTypePhoto__________________________
+        let label3 = document.createElement("label");
+        label3.innerHTML =
+          "<i class='fa fa-picture-o' style='margin-left:15px;margin-right:14px'></i> Choose";
+        label3.classList.add("label3");
+        label3.setAttribute("for", "getFile");
+        inputWrap.appendChild(label3);
+
+        let prImg = document.createElement("img");
+        prImg.classList.add("prImg");
+        prImg.setAttribute("id", "pr-img");
+        inputWrapper.appendChild(prImg);
+
+        inputType.style.display = "none";
+        inputWrapper.appendChild(inputType);
+        inputType.setAttribute("type", "file");
+        inputType.setAttribute("id", "getFile");
+        inputType.setAttribute("accept", "image/*");
+        let preview = (e) => {
+          let imgFiles = e.target.files;
+          let imgFilesLength = imgFiles.length;
+          if (imgFilesLength > 0) {
+            let imgSrc = URL.createObjectURL(imgFiles[0]);
+            let imgEl = document.querySelector("#pr-img");
+            imgEl.src = imgSrc;
+            imgEl.style.display = "block";
+          }
+        };
+        let PhotoPRofile = [];
+        inputType.addEventListener("change", (e) => {
+          preview(e);
+          const image = e.target.files[0];
+          PhotoPRofile.push(image);
+        });
+
+        // Submit________________________________________
+        sbt.addEventListener("click", () => {
+          let img = PhotoPRofile[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(img);
+          reader.addEventListener("load", () => {
+            localStorage.setItem("Photo", reader.result);
+          });
+        });
+      }
     });
-    form_SetPhoto.appendChild(sbt);
   });
 
   // Mode Setting____________________________________________
@@ -572,10 +588,7 @@ settings.addEventListener("click", () => {
   btnMode.appendChild(txtBtn);
   sideBar.appendChild(btnMode);
 
-  btnName.innerHTML += "<i class='fa fa-chevron-right'></i>";
-
   // ON/OFF BTN______________________________________________
-
   let onOffBtn = document.createElement("button");
   onOffBtn.classList.add("onOffBtn");
   onOffBtn.innerText = "OFF";
@@ -593,7 +606,4 @@ settings.addEventListener("click", () => {
   }
 
   // ON/OFF BTN________________ENDS___________________________
-
-  btnPassword.innerHTML += "<i class='fa fa-chevron-right'></i>";
-  btnPhoto.innerHTML += "<i class='fa fa-chevron-right'></i>";
 });

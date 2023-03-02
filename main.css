@@ -61,7 +61,7 @@ body {
 
 .sideBar {
   width: 280px;
-  height: 250px;
+  height: fit-content;
   background: var(--main);
   position: absolute;
   top: 12%;
@@ -98,6 +98,7 @@ body {
   color: var(--main);
   background-color: white;
   border: none;
+  margin-bottom: 8px;
 }
 .settingBtn:hover {
   box-shadow: rgba(0, 0, 0, 0.119) 0px -13px 25px 0px inset,
@@ -403,7 +404,6 @@ select {
   width: 1.08vw;
   height: 1.08vw;
   cursor: pointer;
-  color: #6e9bf6;
   background: var(--main);
 }
 
@@ -746,7 +746,7 @@ select {
   }
 }
 
-.shadowSetPhoto {
+.shadowSet {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -759,9 +759,9 @@ select {
   z-index: 6;
 }
 
-.form_SetPhoto {
+.form_Settings {
   width: 370px;
-  height: 360px;
+  height: fit-content;
   border-radius: 15px;
   background: var(--main);
   display: flex;
@@ -775,7 +775,7 @@ select {
   animation: fade 0.7s linear;
 }
 
-.inputs_SetPhoto {
+.inputWrapper {
   width: 90%;
   height: fit-content;
   display: flex;
@@ -783,7 +783,7 @@ select {
   justify-content: space-between;
   font-size: 18px;
 }
-.input1 {
+.inputWrap {
   width: 100%;
   height: 38px;
   display: flex;
@@ -792,6 +792,7 @@ select {
   justify-content: space-between;
   border-radius: 13px;
   margin-top: 10px;
+  color: #757575;
 }
 
 .user {
@@ -818,18 +819,6 @@ select {
   outline: none;
 }
 
-.input3 {
-  width: 100%;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 13px;
-  color: #757575;
-  margin-top: 10px;
-}
-
 .label3 {
   width: 95%;
   height: 80%;
@@ -852,6 +841,7 @@ select {
   align-items: flex-start;
   font-size: 30px;
   background: #fe6057;
+  color: white;
   padding: 1px 6px 0 0;
   border-top-right-radius: 13px;
   border-bottom-left-radius: 100%;
@@ -872,4 +862,5 @@ select {
   letter-spacing: 1px;
   border-radius: 12px;
   border: none;
+  margin-top: 35px;
 }

@@ -233,8 +233,12 @@ btn.addEventListener("click", () => {
 let userName2 = localStorage.getItem("Name");
 let isPasswordSet = localStorage.getItem("Password");
 
-if (userName2.length > 0 && isPasswordSet.length === null) {
-  window.location.href = "./main.html";
+if (userName2.length > 0) {
+  if (isPasswordSet === null) {
+    window.location.href = "./main.html";
+  } else {
+    window.location.href = "./password.html";
+  }
 } else {
   if (isPasswordSet.length > 0) {
     window.location.href = "./password.html";
