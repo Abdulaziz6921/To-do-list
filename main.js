@@ -259,7 +259,7 @@ addTaskBtn.addEventListener("click", () => {
     ul.style.paddingTop = "25px";
   });
 
-  inputTask.value = "";
+  // inputTask.value = "";
   let main = document.querySelector("main");
   let rightSide = document.querySelector(".rightSide");
   let children = ul.childElementCount;
@@ -277,6 +277,8 @@ addTaskBtn.addEventListener("click", () => {
   if (children === 7) {
     rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
   }
+
+  form.reset();
 });
 
 let children = ul.childElementCount;
