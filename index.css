@@ -164,7 +164,7 @@ button:hover {
 }
 
 .prImg {
-  width: 110px;
+  width: fit-content;
   height: 115px;
   object-fit: content;
   display: none;
