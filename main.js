@@ -12,356 +12,22 @@ let form = document.querySelector("form");
 let done = document.querySelector(".btn3");
 let ul = document.querySelector(".wrapper");
 
-// Getting Name_____________________________________
-let userName = localStorage.getItem("Name");
-let user = document.createElement("h1");
-user.innerText = userName;
-header.appendChild(user);
-
-if (userName.length > 9) {
-  let h1 = document.querySelectorAll("h1");
-  h1.forEach((el) => {
-    el.style = `font-size:50px;line-height:60px;`;
-  });
-}
-
-// Getting Date____________________________________________
-let today = new Date();
-let d = today.toString().split(" ");
-let dayPlus = d[0];
-let month = today.getMonth();
-
-switch (dayPlus) {
-  case "Tue":
-    dayPlus = "Tuesday";
-    break;
-  case "Wed":
-    dayPlus = "Wednesday";
-    break;
-  case "Thu":
-    dayPlus = "Thursday";
-    break;
-  case "Sat":
-    dayPlus = "Saturday";
-    break;
-
-  default:
-    dayPlus += "day";
-    break;
-}
-
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let whatMonth = months[month];
-
-let fullDate = dayPlus + " " + whatMonth + " " + d.splice(3, 1).join("  ");
-
-let date = document.createElement("h3");
-date.innerHTML = `<i>${fullDate} </i>`;
-date.style = `color:#6E9BF6;  margin-top:20px`;
-let span = document.createElement("span");
-date.appendChild(span);
-console.log(span);
-setInterval(() => {
-  let clock = new Date();
-  let current = clock.toString().split(" ");
-  span.textContent = current[4];
-}, 1000);
-leftSide.insertBefore(date, box);
-
-// Profile picture_____________________________________
-let img = localStorage.getItem("Photo");
-if (img === null) {
-  pic.innerHTML = "<i>No picture yet</i>";
-  pic.style = `background-color:#6e9bf6`;
-} else {
-  let photo = document.createElement("img");
-  photo.src = img;
-  pic.appendChild(photo);
-}
-
-// NEW Task Button_______________________________
-
-newTaskBtn.addEventListener("click", () => {
-  form.style = "display:flex";
-  newTaskBtn.style.display = "none";
-  inner.style.paddingTop = "0px";
-
-  form.addEventListener("click", (e) => {
-    e.preventDefault();
-  });
-});
-
-let addTaskBtn = document.querySelector(".btn2");
-let inputTask = addTaskBtn.previousElementSibling;
-let onlyNumbers =
-  /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)(?:0?2|(?:Feb))\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-let select = document.querySelector("#select");
-let val = "text";
-select.addEventListener("change", (e) => {
-  val = e.target.value;
-  if (val === "text") {
-    inputTask.setAttribute("placeholder", "Add Task");
-  } else {
-    inputTask.setAttribute("placeholder", "dd.mm.yy, dd/mm/yy, dd-mm-yy");
-  }
-});
-let height;
-let listOfTasks = JSON.parse(localStorage.getItem("Tasks"))
-  ? JSON.parse(localStorage.getItem("Tasks"))
-  : [];
-
-if (listOfTasks.length) {
-  showToDo();
-  ul.style.paddingTop = "25px";
-}
-
-// Setting listOfTasks to localStorage__________
-let setToDo = () => {
-  localStorage.setItem("Tasks", JSON.stringify(listOfTasks));
-};
-
-// Showing listOfTasks inside ul____________
-function showToDo() {
-  let getListOfTasks = JSON.parse(localStorage.getItem("Tasks"));
-
-  ul.innerHTML = "";
-  getListOfTasks.forEach((task, i) => {
-    if (body.classList.contains("dark_mode")) {
-      ul.style = `color:black`;
-    } else {
-      ul.style = `color:black`;
-    }
-    let tasks = document.createElement("div");
-    tasks.classList.add("tasks");
-    ul.appendChild(tasks);
-
-    let textOfTasks = document.createElement("div");
-    textOfTasks.classList.add("text");
-    tasks.appendChild(textOfTasks);
-
-    let checked = document.createElement("input");
-    checked.setAttribute("type", "checkbox");
-    checked.classList.add("inputCheck");
-    textOfTasks.appendChild(checked);
-    checked.addEventListener("change", function () {
-      let completedToDo = listOfTasks.map((item, id) => {
-        if (id === i && checked.checked) {
-          return {
-            ...item,
-            completed: item.completed === true ? false : true,
-          };
-        } else {
-          return { ...item };
-        }
-      });
-
-      listOfTasks = completedToDo;
-      setToDo();
-      showToDo();
-      ul.style.paddingTop = "25px";
-    });
-
-    let p = document.createElement("p");
-    p.innerHTML = task.text;
-    textOfTasks.appendChild(p);
-    if (task.completed === true) {
-      p.style.textDecoration = "line-through";
-    } else {
-      p.style.textDecoration = "";
-    }
-
-    let btn = document.createElement("button");
-    btn.innerHTML = "<i class='fa fa-trash'></i>";
-    btn.classList.add("trashBtn");
-    tasks.appendChild(btn);
-    btn.addEventListener("click", () => {
-      let deleteTodo = getListOfTasks.filter((item, id) => {
-        return id !== i;
-      });
-      listOfTasks = deleteTodo;
-      setToDo();
-      showToDo();
-      let children = ul.childElementCount;
-      ul.style.paddingTop = "25px";
-      if (children === 3) {
-        rightSide.style.height = "50vh";
-      }
-    });
-  });
-}
-
-addTaskBtn.addEventListener("click", () => {
-  if (val === "text") {
-    if (inputTask.value === "") {
-      let close = document.querySelector(".close");
-      form.appendChild(close);
-      inputTask.style = ` border:2px solid red;box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(254, 254, 254, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;`;
-      let info = document.createElement("p");
-      info.innerText = `Nothing is written`;
-      close.appendChild(info);
-      info.style = `color:white; text-align:center; font-size:18px`;
-
-      setTimeout(() => {
-        inputTask.style = `border:none`;
-        info.innerText = ``;
-      }, 2000);
-    } else {
-      listOfTasks.push({ text: inputTask.value, completed: false });
-
-      setToDo();
-      showToDo();
-    }
-  } else {
-    if (onlyNumbers.test(inputTask.value)) {
-      listOfTasks.push({ text: inputTask.value, completed: false });
-      setToDo();
-      showToDo();
-    } else {
-      let close = document.querySelector(".close");
-      form.appendChild(close);
-      inputTask.style = ` border:2px solid red;box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(254, 254, 254, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;`;
-      let info = document.createElement("p");
-
-      if (inputTask.value === "") {
-        info.innerText = `Nothing is written`;
-      } else if (typeof inputTask.value === "string") {
-        info.innerText = `Only formats:dd.mm.yy ... allowed`;
-        info.style.textAlign = "right";
-      }
-      close.appendChild(info);
-      info.style = `color:white; text-align:center; font-size:18px`;
-
-      setTimeout(() => {
-        inputTask.style = `border:none`;
-        info.innerText = ``;
-      }, 3000);
-    }
-  }
-
-  done.style.display = "block";
-  done.addEventListener("click", () => {
-    form.style = "display:none";
-
-    newTaskBtn.style.display = "block";
-    ul.style.paddingTop = "25px";
-  });
-
-  // inputTask.value = "";
-  let main = document.querySelector("main");
-  let rightSide = document.querySelector(".rightSide");
-  let children = ul.childElementCount;
-  let windowWidth = window.innerWidth;
-
-  // Solving media problem____________________________
-  if (children >= 3 && windowWidth < 700) {
-    rightSide.style = `height:fit-content`;
-    console.log("ys");
-  }
-
-  if (children === 5) {
-    main.style.height = "fit-content";
-  }
-  if (children === 7) {
-    rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
-  }
-
-  form.reset();
-});
-
-let children = ul.childElementCount;
-
-// Solving media problem____________________________
-
-if (children >= 5) {
-  main.style.height = "fit-content";
-}
-if (children >= 7) {
-  rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
-}
-
-let allDelete = document.querySelector(".allDelete");
-
-allDelete.addEventListener("click", () => {
-  let allTasks = inner.getElementsByClassName("tasks");
-  if (allTasks.length >= 2) {
-    let shadowConfirmation = document.createElement("div");
-    shadowConfirmation.classList.add("shadowSet");
-    body.appendChild(shadowConfirmation);
-
-    //   Form____________________________________________
-    let form_Settings = document.createElement("div");
-    form_Settings.style = `background-color:red`;
-    form_Settings.classList.add("confirmation");
-
-    shadowConfirmation.appendChild(form_Settings);
-
-    //   Header__________________________________________
-    let h3 = document.createElement("p");
-    h3.innerText =
-      "Are you sure you want to delete all the lists of to do? They will be permanently removed and can not be recovered";
-    h3.style = `text-align:center`;
-    form_Settings.appendChild(h3);
-
-    //   Confirm___________________________________________
-    let confirmPart = document.createElement("div");
-    confirmPart.style =
-      "display:flex; width:100%;justify-content:space-between";
-    form_Settings.appendChild(confirmPart);
-
-    let noBtn = document.createElement("button");
-    noBtn.style = `background-color:#01ED03`;
-    noBtn.classList.add("yes-no_Btn");
-    noBtn.textContent = "No, keep them";
-    confirmPart.appendChild(noBtn);
-
-    noBtn.addEventListener("click", () => {
-      body.removeChild(shadowConfirmation);
-    });
-
-    let yesBtn = document.createElement("button");
-    yesBtn.style = `color:red`;
-    yesBtn.classList.add("yes-no_Btn");
-    yesBtn.textContent = "Yes, delete them all";
-    confirmPart.appendChild(yesBtn);
-
-    yesBtn.addEventListener("click", () => {
-      while (allTasks[0]) {
-        allTasks[0].parentNode.removeChild(allTasks[0]);
-        localStorage.removeItem("Tasks");
-      }
-      window.location.reload();
-    });
-  }
-});
-
 // Showing Settings Parameter Sidebar________________________
 settings.addEventListener("click", () => {
   let shadowBar = document.createElement("div");
   shadowBar.classList.add("shadowBar");
   body.appendChild(shadowBar);
 
-  shadowBar.addEventListener("click", () => {
-    shadowBar.classList.add("sideBarRemove");
-    sideBar.classList.add("sideBarRemove");
-  });
-
   let sideBar = document.createElement("div");
   body.appendChild(sideBar);
   sideBar.classList.add("sideBar");
 
+  shadowBar.addEventListener("click", () => {
+    shadowBar.classList.remove("shadowBar");
+    // sideBar.classList.add("sideBar");
+
+    sideBar.classList.add("sideBarRemove");
+  });
   // Name Setting____________________________________________
   let btnName = document.createElement("button");
   let txtName = document.createElement("p");
@@ -717,6 +383,339 @@ settings.addEventListener("click", () => {
   }
 
   // ON/OFF BTN________________ENDS___________________________
+});
+// Getting Name_____________________________________
+let userName = localStorage.getItem("Name");
+let user = document.createElement("h1");
+user.innerText = userName;
+header.appendChild(user);
+
+if (userName.length > 9) {
+  let h1 = document.querySelectorAll("h1");
+  h1.forEach((el) => {
+    el.style = `font-size:50px;line-height:60px;`;
+  });
+}
+
+// Getting Date____________________________________________
+let today = new Date();
+let d = today.toString().split(" ");
+let dayPlus = d[0];
+let month = today.getMonth();
+
+switch (dayPlus) {
+  case "Tue":
+    dayPlus = "Tuesday";
+    break;
+  case "Wed":
+    dayPlus = "Wednesday";
+    break;
+  case "Thu":
+    dayPlus = "Thursday";
+    break;
+  case "Sat":
+    dayPlus = "Saturday";
+    break;
+
+  default:
+    dayPlus += "day";
+    break;
+}
+
+let months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+let whatMonth = months[month];
+
+let fullDate = dayPlus + " " + whatMonth + " " + d.splice(3, 1).join("  ");
+
+let date = document.createElement("h3");
+date.innerHTML = `<i>${fullDate} </i>`;
+date.style = `color:#6E9BF6;  margin-top:20px`;
+let span = document.createElement("span");
+date.appendChild(span);
+console.log(span);
+setInterval(() => {
+  let clock = new Date();
+  let current = clock.toString().split(" ");
+  span.textContent = current[4];
+}, 1000);
+leftSide.insertBefore(date, box);
+
+// Profile picture_____________________________________
+let img = localStorage.getItem("Photo");
+if (img === null) {
+  pic.innerHTML = "<i>No picture yet</i>";
+  pic.style = `background-color:#6e9bf6`;
+} else {
+  let photo = document.createElement("img");
+  photo.src = img;
+  pic.appendChild(photo);
+}
+
+// NEW Task Button_______________________________
+
+newTaskBtn.addEventListener("click", () => {
+  form.style = "display:flex";
+  newTaskBtn.style.display = "none";
+  inner.style.paddingTop = "0px";
+
+  form.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+});
+
+let addTaskBtn = document.querySelector(".btn2");
+let inputTask = addTaskBtn.previousElementSibling;
+let onlyNumbers =
+  /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)(?:0?2|(?:Feb))\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+let select = document.querySelector("#select");
+let val = "text";
+select.addEventListener("change", (e) => {
+  val = e.target.value;
+  if (val === "text") {
+    inputTask.setAttribute("placeholder", "Add Task");
+  } else {
+    inputTask.setAttribute("placeholder", "dd.mm.yy, dd/mm/yy, dd-mm-yy");
+  }
+});
+let height;
+let listOfTasks = JSON.parse(localStorage.getItem("Tasks"))
+  ? JSON.parse(localStorage.getItem("Tasks"))
+  : [];
+
+if (listOfTasks.length) {
+  showToDo();
+  ul.style.paddingTop = "25px";
+}
+
+// Setting listOfTasks to localStorage__________
+let setToDo = () => {
+  localStorage.setItem("Tasks", JSON.stringify(listOfTasks));
+};
+
+// Showing listOfTasks inside ul____________
+function showToDo() {
+  let getListOfTasks = JSON.parse(localStorage.getItem("Tasks"));
+
+  ul.innerHTML = "";
+  getListOfTasks.forEach((task, i) => {
+    if (body.classList.contains("dark_mode")) {
+      ul.style = `color:black`;
+    } else {
+      ul.style = `color:black`;
+    }
+    let tasks = document.createElement("div");
+    tasks.classList.add("tasks");
+    ul.appendChild(tasks);
+
+    let textOfTasks = document.createElement("div");
+    textOfTasks.classList.add("text");
+    tasks.appendChild(textOfTasks);
+
+    let checked = document.createElement("input");
+    checked.setAttribute("type", "checkbox");
+    checked.classList.add("inputCheck");
+    textOfTasks.appendChild(checked);
+    checked.addEventListener("change", function () {
+      let completedToDo = listOfTasks.map((item, id) => {
+        if (id === i && checked.checked) {
+          return {
+            ...item,
+            completed: item.completed === true ? false : true,
+          };
+        } else {
+          return { ...item };
+        }
+      });
+
+      listOfTasks = completedToDo;
+      setToDo();
+      showToDo();
+      ul.style.paddingTop = "25px";
+    });
+
+    let p = document.createElement("p");
+    p.innerHTML = task.text;
+    textOfTasks.appendChild(p);
+    if (task.completed === true) {
+      p.style.textDecoration = "line-through";
+    } else {
+      p.style.textDecoration = "";
+    }
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "<i class='fa fa-trash'></i>";
+    btn.classList.add("trashBtn");
+    tasks.appendChild(btn);
+    btn.addEventListener("click", () => {
+      let deleteTodo = getListOfTasks.filter((item, id) => {
+        return id !== i;
+      });
+      listOfTasks = deleteTodo;
+      setToDo();
+      showToDo();
+      let children = ul.childElementCount;
+      ul.style.paddingTop = "25px";
+      if (children === 3) {
+        rightSide.style.height = "50vh";
+      }
+    });
+  });
+}
+
+addTaskBtn.addEventListener("click", () => {
+  if (val === "text") {
+    if (inputTask.value === "") {
+      let close = document.querySelector(".close");
+      form.appendChild(close);
+      inputTask.style = ` border:2px solid red;box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(254, 254, 254, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;`;
+      let info = document.createElement("p");
+      info.innerText = `Nothing is written`;
+      close.appendChild(info);
+      info.style = `color:white; text-align:center; font-size:18px`;
+
+      setTimeout(() => {
+        inputTask.style = `border:none`;
+        info.innerText = ``;
+      }, 2000);
+    } else {
+      listOfTasks.push({ text: inputTask.value, completed: false });
+
+      setToDo();
+      showToDo();
+    }
+  } else {
+    if (onlyNumbers.test(inputTask.value)) {
+      listOfTasks.push({ text: inputTask.value, completed: false });
+      setToDo();
+      showToDo();
+    } else {
+      let close = document.querySelector(".close");
+      form.appendChild(close);
+      inputTask.style = ` border:2px solid red;box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(254, 254, 254, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;`;
+      let info = document.createElement("p");
+
+      if (inputTask.value === "") {
+        info.innerText = `Nothing is written`;
+      } else if (typeof inputTask.value === "string") {
+        info.innerText = `Only formats:dd.mm.yy ... allowed`;
+        info.style.textAlign = "right";
+      }
+      close.appendChild(info);
+      info.style = `color:white; text-align:center; font-size:18px`;
+
+      setTimeout(() => {
+        inputTask.style = `border:none`;
+        info.innerText = ``;
+      }, 3000);
+    }
+  }
+
+  done.style.display = "block";
+  done.addEventListener("click", () => {
+    form.style = "display:none";
+
+    newTaskBtn.style.display = "block";
+    ul.style.paddingTop = "25px";
+  });
+
+  // inputTask.value = "";
+  let main = document.querySelector("main");
+  let rightSide = document.querySelector(".rightSide");
+  let children = ul.childElementCount;
+  let windowWidth = window.innerWidth;
+
+  // Solving media problem____________________________
+  if (children >= 3 && windowWidth < 700) {
+    rightSide.style = `height:fit-content`;
+  }
+
+  if (children === 5) {
+    main.style.height = "fit-content";
+  }
+  if (children === 7) {
+    rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
+  }
+
+  form.reset();
+});
+
+let children = ul.childElementCount;
+
+// Solving media problem____________________________
+
+if (children >= 5) {
+  main.style.height = "fit-content";
+}
+if (children >= 7) {
+  rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
+}
+
+let allDelete = document.querySelector(".allDelete");
+
+allDelete.addEventListener("click", () => {
+  let allTasks = inner.getElementsByClassName("tasks");
+  if (allTasks.length >= 2) {
+    let shadowConfirmation = document.createElement("div");
+    shadowConfirmation.classList.add("shadowSet");
+    body.appendChild(shadowConfirmation);
+
+    //   Form____________________________________________
+    let form_Settings = document.createElement("div");
+    form_Settings.style = `background-color:red`;
+    form_Settings.classList.add("confirmation");
+
+    shadowConfirmation.appendChild(form_Settings);
+
+    //   Header__________________________________________
+    let h3 = document.createElement("p");
+    h3.innerText =
+      "Are you sure you want to delete all the lists of to do? They will be permanently removed and can not be recovered";
+    h3.style = `text-align:center`;
+    form_Settings.appendChild(h3);
+
+    //   Confirm___________________________________________
+    let confirmPart = document.createElement("div");
+    confirmPart.style =
+      "display:flex; width:100%;justify-content:space-between";
+    form_Settings.appendChild(confirmPart);
+
+    let noBtn = document.createElement("button");
+    noBtn.style = `background-color:#01ED03`;
+    noBtn.classList.add("yes-no_Btn");
+    noBtn.textContent = "No, keep them";
+    confirmPart.appendChild(noBtn);
+
+    noBtn.addEventListener("click", () => {
+      body.removeChild(shadowConfirmation);
+    });
+
+    let yesBtn = document.createElement("button");
+    yesBtn.style = `color:red`;
+    yesBtn.classList.add("yes-no_Btn");
+    yesBtn.textContent = "Yes, delete them all";
+    confirmPart.appendChild(yesBtn);
+
+    yesBtn.addEventListener("click", () => {
+      while (allTasks[0]) {
+        allTasks[0].parentNode.removeChild(allTasks[0]);
+        localStorage.removeItem("Tasks");
+      }
+      window.location.reload();
+    });
+  }
 });
 
 // isPasswordSet or not________________________________
