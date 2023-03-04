@@ -217,89 +217,12 @@ addTaskBtn.addEventListener("click", () => {
 
       setToDo();
       showToDo();
-
-      // listOfTasks.push({ text: inputTask.value, completed: false });
-      // localStorage.setItem("Tasks", JSON.stringify(listOfTasks));
-      // let getListOfTasks = JSON.parse(localStorage.getItem("Tasks"));
-      // let tasks = document.createElement("div");
-      // tasks.classList.add("tasks");
-      // if (body.classList.contains("dark_mode")) {
-      //   tasks.style = `color:black`;
-      // } else {
-      //   tasks.style = `color:black`;
-      // }
-      // inner.appendChild(tasks);
-      // getListOfTasks.forEach((task, i) => {
-      //   tasks.innerHTML = `<div class="text"><input type='checkbox' class='inputCheck'><p id="textOfTasks">${task.text}</p></div>`;
-      //   let btn = document.createElement("button");
-      //   btn.innerHTML = "<i class='fa fa-trash'></i>";
-      //   btn.classList.add("trashBtn");
-      //   tasks.appendChild(btn);
-      //   btn.addEventListener("click", () => {
-      //     let deleteTodo = getListOfTasks.filter((item, id) => {
-      //       return id !== i;
-      //     });
-      //     getListOfTasks = deleteTodo;
-      //     localStorage.setItem("Tasks", JSON.stringify(listOfTasks));
-      //   });
-      // });
-      // let btns = document.querySelectorAll(`.trashBtn`);
-      // btns.forEach((btn) => {
-      //   btn.addEventListener("click", (e) => {
-      //     console.log(e);
-      //   });
-      // });
-      // let inputCheck = document.querySelectorAll(".inputCheck");
-      // let p = document.querySelector("#textOfTasks");
-      // inputCheck.forEach((input) => {
-      //   input.addEventListener("change", function () {
-      //     if (input.checked) {
-      //       task.completed += false;
-      //     } else {
-      //       task.completed = true;
-      //     }
-      //   });
-      // });
     }
   } else {
     if (onlyNumbers.test(inputTask.value)) {
-      let tasks = document.createElement("div");
-      tasks.classList.add("tasks");
-      inner.appendChild(tasks);
-      if (body.classList.contains("dark_mode")) {
-        tasks.style = `color:black`;
-      } else {
-        tasks.style = `color:black`;
-      }
-
-      let text = document.createElement("div");
-      text.classList.add("text");
-      tasks.appendChild(text);
-
-      let input = document.createElement("input");
-      input.setAttribute("type", "checkbox");
-      input.classList.add("checkbox");
-      text.appendChild(input);
-      input.addEventListener("change", function () {
-        if (this.checked) {
-          p.style.textDecoration = "line-through";
-        } else {
-          p.style.textDecoration = "";
-        }
-      });
-
-      let p = document.createElement("p");
-      p.innerText = inputTask.value;
-      text.appendChild(p);
-
-      let btn = document.createElement("button");
-      btn.innerHTML = "<i class='fa fa-trash'></i>";
-      tasks.appendChild(btn);
-
-      btn.addEventListener("click", (e) => {
-        let inn = e.target.parentElement.parentElement;
-        inn.remove();
-      });
+      listOfTasks.push({ text: inputTask.value, completed: false });
+      setToDo();
+      showToDo();
     } else {
       let close = document.querySelector(".close");
       form.appendChild(close);
