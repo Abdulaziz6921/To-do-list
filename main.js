@@ -263,14 +263,19 @@ addTaskBtn.addEventListener("click", () => {
   let main = document.querySelector("main");
   let rightSide = document.querySelector(".rightSide");
   let children = ul.childElementCount;
+  let windowWidth = window.innerWidth;
 
   // Solving media problem____________________________
+  if (children >= 3 && windowWidth < 700) {
+    rightSide.style = `height:fit-content`;
+    console.log("ys");
+  }
 
   if (children === 5) {
     main.style.height = "fit-content";
   }
   if (children === 7) {
-    rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;`;
+    rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
   }
 });
 
@@ -282,7 +287,7 @@ if (children >= 5) {
   main.style.height = "fit-content";
 }
 if (children >= 7) {
-  rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;`;
+  rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
 }
 
 let allDelete = document.querySelector(".allDelete");
@@ -667,14 +672,12 @@ settings.addEventListener("click", () => {
         inputType.addEventListener("change", (e) => {
           preview(e);
           const image = e.target.files[0];
-          PhotoPRofile.push(image);
+          PhotoPRofile.unshift(image);
         });
 
         // Submit________________________________________
-        sbt.addEventListener("click", (e) => {
-          e.preventDefault();
+        sbt.addEventListener("click", () => {
           let img = PhotoPRofile[0];
-          console.log(img);
 
           const reader = new FileReader();
           reader.readAsDataURL(img);
