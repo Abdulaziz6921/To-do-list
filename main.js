@@ -4,6 +4,8 @@ let header = document.querySelector(".headers");
 let leftSide = document.querySelector(".leftSide");
 let box = document.querySelector(".box ");
 let pic = document.querySelector(".pctr ");
+let main = document.querySelector("main");
+let rightSide = document.querySelector(".rightSide");
 let newTaskBtn = document.querySelector(".btn1");
 let inner = document.querySelector(".inner");
 let form = document.querySelector("form");
@@ -124,7 +126,6 @@ let listOfTasks = JSON.parse(localStorage.getItem("Tasks"))
 if (listOfTasks.length) {
   showToDo();
   ul.style.paddingTop = "25px";
-} else {
 }
 
 // Setting listOfTasks to localStorage__________
@@ -193,7 +194,11 @@ function showToDo() {
       listOfTasks = deleteTodo;
       setToDo();
       showToDo();
+      let children = ul.childElementCount;
       ul.style.paddingTop = "25px";
+      if (children === 3) {
+        rightSide.style.height = "50vh";
+      }
     });
   });
 }
@@ -269,8 +274,6 @@ addTaskBtn.addEventListener("click", () => {
   }
 });
 
-let main = document.querySelector("main");
-let rightSide = document.querySelector(".rightSide");
 let children = ul.childElementCount;
 
 // Solving media problem____________________________
@@ -332,7 +335,7 @@ allDelete.addEventListener("click", () => {
         allTasks[0].parentNode.removeChild(allTasks[0]);
         localStorage.removeItem("Tasks");
       }
-      body.removeChild(shadowConfirmation);
+      window.location.reload();
     });
   }
 });
