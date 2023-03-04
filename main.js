@@ -124,6 +124,7 @@ let listOfTasks = JSON.parse(localStorage.getItem("Tasks"))
 if (listOfTasks.length) {
   showToDo();
   ul.style.paddingTop = "25px";
+} else {
 }
 
 // Setting listOfTasks to localStorage__________
@@ -289,7 +290,6 @@ allDelete.addEventListener("click", () => {
     let shadowConfirmation = document.createElement("div");
     shadowConfirmation.classList.add("shadowSet");
     body.appendChild(shadowConfirmation);
-    body.style.height = "100%";
 
     //   Form____________________________________________
     let form_Settings = document.createElement("div");
@@ -668,8 +668,11 @@ settings.addEventListener("click", () => {
         });
 
         // Submit________________________________________
-        sbt.addEventListener("click", () => {
+        sbt.addEventListener("click", (e) => {
+          e.preventDefault();
           let img = PhotoPRofile[0];
+          console.log(img);
+
           const reader = new FileReader();
           reader.readAsDataURL(img);
           reader.addEventListener("load", () => {
