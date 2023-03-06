@@ -1,6 +1,7 @@
 let btn = document.querySelector("button");
 let body = document.querySelector("body");
 
+// Form submission___________________________________________
 btn.addEventListener("click", () => {
   //   Shadow_________________________________________
   let shadow = document.createElement("div");
@@ -96,7 +97,6 @@ btn.addEventListener("click", () => {
   photo.addEventListener("change", (e) => {
     preview(e);
     const image = e.target.files[0];
-    console.log(image);
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.addEventListener("load", () => {
@@ -112,7 +112,6 @@ btn.addEventListener("click", () => {
       let imgEl = document.querySelector("#pr-img");
       imgEl.src = imgSrc;
       imgEl.style.display = "block";
-      console.log(imgSrc);
     }
   };
 
@@ -229,11 +228,8 @@ btn.addEventListener("click", () => {
   });
 });
 
-// Directed to the main page________________________________
+// Directing to the main page________________________________
 let userName2 = localStorage.getItem("Name");
-
 if (userName2.length > 0) {
   window.location.href = "./main.html";
 }
-
-// Direct to the Password page__________________________________

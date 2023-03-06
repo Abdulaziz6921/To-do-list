@@ -7,8 +7,10 @@ let pic = document.querySelector(".pctr ");
 let main = document.querySelector("main");
 let rightSide = document.querySelector(".rightSide");
 let newTaskBtn = document.querySelector(".btn1");
+let addTaskBtn = document.querySelector(".btn2");
 let inner = document.querySelector(".inner");
 let form = document.querySelector("form");
+let allDelete = document.querySelector(".allDelete");
 let done = document.querySelector(".btn3");
 let ul = document.querySelector(".wrapper");
 
@@ -201,7 +203,6 @@ settings.addEventListener("click", () => {
         if (txtPassword.innerText.includes("Change")) {
           inputType.setAttribute("placeholder", "Change the password");
           h3.innerText = "Change your password:";
-          console.log("yes");
         } else {
           inputType.setAttribute("placeholder", "Create password");
           h3.innerText = "Set your password";
@@ -384,6 +385,18 @@ settings.addEventListener("click", () => {
 
   // ON/OFF BTN________________ENDS___________________________
 });
+
+// Profile picture_____________________________________
+let img = localStorage.getItem("Photo");
+if (img === null) {
+  pic.innerHTML = "<i>No picture yet</i>";
+  pic.style = `background-color:#6e9bf6`;
+} else {
+  let photo = document.createElement("img");
+  photo.src = img;
+  pic.appendChild(photo);
+}
+
 // Getting Name_____________________________________
 let userName = localStorage.getItem("Name");
 let user = document.createElement("h1");
@@ -397,7 +410,7 @@ if (userName.length > 9) {
   });
 }
 
-// Getting Date____________________________________________
+// Getting Date and Time______________________________
 let today = new Date();
 let d = today.toString().split(" ");
 let dayPlus = d[0];
@@ -445,7 +458,6 @@ date.innerHTML = `<i>${fullDate} </i>`;
 date.style = `color:#6E9BF6;  margin-top:20px`;
 let span = document.createElement("span");
 date.appendChild(span);
-console.log(span);
 setInterval(() => {
   let clock = new Date();
   let current = clock.toString().split(" ");
@@ -453,19 +465,7 @@ setInterval(() => {
 }, 1000);
 leftSide.insertBefore(date, box);
 
-// Profile picture_____________________________________
-let img = localStorage.getItem("Photo");
-if (img === null) {
-  pic.innerHTML = "<i>No picture yet</i>";
-  pic.style = `background-color:#6e9bf6`;
-} else {
-  let photo = document.createElement("img");
-  photo.src = img;
-  pic.appendChild(photo);
-}
-
-// NEW Task Button_______________________________
-
+// + NEW Task Button_____________________________________
 newTaskBtn.addEventListener("click", () => {
   form.style = "display:flex";
   newTaskBtn.style.display = "none";
@@ -476,7 +476,7 @@ newTaskBtn.addEventListener("click", () => {
   });
 });
 
-let addTaskBtn = document.querySelector(".btn2");
+// Add Task Btn____________________________________________
 let inputTask = addTaskBtn.previousElementSibling;
 let onlyNumbers =
   /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)(?:0?2|(?:Feb))\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
@@ -490,7 +490,7 @@ select.addEventListener("change", (e) => {
     inputTask.setAttribute("placeholder", "dd.mm.yy, dd/mm/yy, dd-mm-yy");
   }
 });
-let height;
+
 let listOfTasks = JSON.parse(localStorage.getItem("Tasks"))
   ? JSON.parse(localStorage.getItem("Tasks"))
   : [];
@@ -505,7 +505,7 @@ let setToDo = () => {
   localStorage.setItem("Tasks", JSON.stringify(listOfTasks));
 };
 
-// Showing listOfTasks inside ul____________
+// Showing listOfTasks inside ul________________
 function showToDo() {
   let getListOfTasks = JSON.parse(localStorage.getItem("Tasks"));
 
@@ -632,8 +632,7 @@ addTaskBtn.addEventListener("click", () => {
   });
 
   // inputTask.value = "";
-  let main = document.querySelector("main");
-  let rightSide = document.querySelector(".rightSide");
+
   let children = ul.childElementCount;
   let windowWidth = window.innerWidth;
 
@@ -652,9 +651,8 @@ addTaskBtn.addEventListener("click", () => {
   form.reset();
 });
 
+// Solving media problem__________________________
 let children = ul.childElementCount;
-
-// Solving media problem____________________________
 
 if (children >= 5) {
   main.style.height = "fit-content";
@@ -663,8 +661,7 @@ if (children >= 7) {
   rightSide.style = `justify-content:flex-start; padding: 2.24vw 0;height:fit-content`;
 }
 
-let allDelete = document.querySelector(".allDelete");
-
+// Delete All Btn__________________________________
 allDelete.addEventListener("click", () => {
   let allTasks = inner.getElementsByClassName("tasks");
   if (allTasks.length >= 2) {
