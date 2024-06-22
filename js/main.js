@@ -1,18 +1,18 @@
-let settings = document.querySelector(".settings");
-let body = document.querySelector("body");
-let header = document.querySelector(".headers");
-let leftSide = document.querySelector(".leftSide");
-let box = document.querySelector(".box ");
-let pic = document.querySelector(".pctr ");
-let main = document.querySelector("main");
-let rightSide = document.querySelector(".rightSide");
-let newTaskBtn = document.querySelector(".btn1");
-let addTaskBtn = document.querySelector(".btn2");
-let inner = document.querySelector(".inner");
-let form = document.querySelector("form");
-let allDelete = document.querySelector(".allDelete");
-let done = document.querySelector(".btn3");
-let ul = document.querySelector(".wrapper");
+let settings = document.querySelector(".settings"),
+  body = document.querySelector("body"),
+  header = document.querySelector(".headers"),
+  leftSide = document.querySelector(".leftSide"),
+  box = document.querySelector(".box "),
+  pic = document.querySelector(".pctr "),
+  main = document.querySelector("main"),
+  rightSide = document.querySelector(".rightSide"),
+  newTaskBtn = document.querySelector(".btn1"),
+  addTaskBtn = document.querySelector(".btn2"),
+  inner = document.querySelector(".inner"),
+  form = document.querySelector("form"),
+  allDelete = document.querySelector(".allDelete"),
+  done = document.querySelector(".btn3"),
+  ul = document.querySelector(".wrapper");
 
 // Showing Settings Parameter Sidebar________________________
 settings.addEventListener("click", () => {
